@@ -22,7 +22,7 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 - **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. The smaller the value, the lower it gets the result's RMS error (if detected any), but lowers the algorithm's detection rate. In contrast, a larger value raises the detection rate but the result tends to have a higher RMS error.
 
-- **Mean Distance** means an average distance between points. This value is determined by the scanner device's resolution and its scan distance, so you can set the value in the same way with the measurement accuracy.
+- **Mean Distance** means an average distance between points. This value is determined by the scanner device's resolution and its scan distance. This value to be used to validate the results of FindSurface by checking the point density of inlier points. It is recommended to set this value to a 2~5 times higher value of the actual one because the inlier points will have lower point density than that of input points.
 
 - **Seed Point (Index)** is a point of interest to start searching the surface. FindSurface accepts this information as an **index** in the point cloud.
 
@@ -38,7 +38,8 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
   ![inliers_outliers.jpg](https://developers.curvsurf.com/Documentation/APIs/How-To/img/inliers_outliers.jpg)
 
-- **RMS error** means the *posteriori* root-mean-squared error between the inlier points and the sought surface.
+  
+
 
 ## What exactly do I get from FindSurface?
 
@@ -46,7 +47,7 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 FindSurface produces the following information as the outputs of its algorithm:
 
-- **RMS error**: the root-mean-squared error in the distances between inlier points
+- **RMS error** means the *posteriori* root-mean-squared error between the inlier points and the sought surface.
 - **Feature Type**: the geometric type of the detected surface (plane, sphere, cylinder, cone, torus)
 - **Sizes and positions** corresponding to the type:
   - The coordinates of **four corner** points of a plane (named as lower left, lower right, upper left, upper right).

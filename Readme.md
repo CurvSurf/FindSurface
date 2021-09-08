@@ -10,7 +10,7 @@ This library supports the following platforms/languages and you can find the dis
 
 - [iOS (Objective-C/Swift)](https://github.com/CurvSurf/FindSurface-iOS)
 - [Android (Java/Kotlin)](https://github.com/CurvSurf/FindSurface-Android)
-- Windows/Linux (C/C++) (to be updated in the future)
+- [Windows](https://github.com/CurvSurf/FindSurface-Windows)/[Linux](https://github.com/CurvSurf/FindSurface-Linux) (C/C++)
 
 ## How does it work?
 
@@ -47,7 +47,7 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 FindSurface produces the following information as the outputs of its algorithm:
 
-- **RMS error** means the *posteriori* root-mean-squared error between the inlier points and the sought surface.
+- **RMS error** means the *posteriori* root-mean-squared error between the inlier points and the detected surface.
 - **Feature Type**: the geometric type of the detected surface (plane, sphere, cylinder, cone, torus)
 - **Sizes and positions** corresponding to the type:
   - The coordinates of **four corner** points of a plane (named as lower left, lower right, upper left, upper right).

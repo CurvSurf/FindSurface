@@ -14,8 +14,6 @@ This library supports the following platforms/languages and you can find the dis
 
 ## How does it work?
 
-----
-
 FindSurface detects a geometric model in point cloud. It starts searching with a region of interest in the points and spreading the search space until it converges to a specific mathematical representation of one of the geometric shapes according to their local curvature, which has the minimal errors in the distances to the points. The types of the shapes that FindSurface detects are planes (bounded), spheres, cylinders, cones, tori.
 
 The strategy of FindSurface's algorithm, which affects how it spreads its search space or converges to the specific model, is determined by its parameters. The followings are the terms and its meanings that we define for the parameters:
@@ -43,8 +41,6 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 ## What exactly do I get from FindSurface?
 
-----
-
 FindSurface produces the following information as the outputs of its algorithm:
 
 - **RMS error** means the *posteriori* root-mean-squared error between the inlier points and the detected surface.
@@ -57,6 +53,43 @@ FindSurface produces the following information as the outputs of its algorithm:
   - The **center** coordinates and the **radius** of a torus, its **axis** vector, and the **tube radius** (named as center, mean radius, normal, tube radius).
   - The normal/axis of plane/cylinder/torus is arbitrarily chosen between two alternatives by the algorithm.
 - Boolean array of which elements tells you whether the points in the corresponding indices are considered as **inlier points** by the algorithm.
+
+
+
+## Geometric Surfaces
+
+From the point of view of the algorithm of FindSurface, all geometric surfaces can be classified into the following five types:
+
+- Bounded Plane (rectangle)
+- Sphere
+- Cylinder
+- Cone (including conical frustum)
+- Torus
+
+
+
+## Auto Detection
+
+The algorithm of FindSurface is capable of "Auto Detection", which means it can detect the most fit surface type around the seed area without specifying the feature type manually. The resulted surface type is automatically determined when the surface model converges to a specific surface type.
+
+(TODO: local curvature에 따라 branching하는 내용 찾아서 삽입)
+
+
+
+To use auto detection feature, set the enum value representing any type (e.g., `FS_TYPE_ANY` for C, `FeatureType::any` for Kotlin) to the feature type parameter of `findSurface` function, instead of setting a specific type.
+
+
+
+## Smart Conversion
+
+In the mathematical models of the geometric surfaces that the algorithm of FindSurface builds, there are some special relations between the surfaces in terms of geometric topology. For example, a cone (conical frustum) that has the same radii at both its top and bottom is actually a cylinder. After the model converges to a specific surface type, Smart conversion, if enabled, automatically converts the type according to the relations. Smart conversion converts:
+
+- A cone (conical frustum) that has the same radii at both its top and bottom into a cylinder;
+- A degenerate torus (a double-covered sphere), of which mean radius is zero, into a sphere;
+  ([this gif](https://en.wikipedia.org/wiki/File:Sphere-like_degenerate_torus.gif) will help you understand what it is)
+- A torus that has an infinite mean radius into a cylinder;
+
+To enable Smart Conversion, the corresponding enum value must be set to the context manually.
 
 
 

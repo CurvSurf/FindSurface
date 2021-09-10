@@ -90,31 +90,27 @@ Given the seed point, the algorithm analyzes the local curvature of the region a
 
 ````c
 if planar {
-  	fit a plane;
+    fit a plane;
 }
 else if parabolic {
-  	fit a cone;
-  	if the vertex angle is small {
-      	fit a cylinder;
+    fit a cone;
+    if the vertex angle is small {
+        fit a cylinder;
     }
 }
 else if elliptic {
-  	if the mean radius is small {
-      	fit a sphere;
+    fit a torus;
+    if the mean radius is small {
+        fit a sphere;
     }
-  	else if the mean radius is large {
-      	fit a cylinder;
-    }
-  	else {
-  			fit a torus;
+    else if the mean radius is large {
+        fit a cylinder;
     }
 }
 else /*if hyperbolic*/ {
-  	if the mean radius is large {
-      	fit a cylinder;
-    }
-  	else {
-  			fit a torus;
+    fit a torus;
+    if the mean radius is large {
+        fit a cylinder;
     }
 }
 ````

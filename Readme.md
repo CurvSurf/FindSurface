@@ -16,19 +16,6 @@ This library supports the following platforms/languages and you can find the dis
 
 
 
-## Sitemaps
-
-  - [FindSurface for iOS (Objective-C/Swift)](https://github.com/CurvSurf/FindSurface-iOS)
-      - [BasicDemo (Swift)](https://github.com/CurvSurf/FindSurface-BasicDemo-iOS)
-  - [FindSurface for Android (Java/Kotlin)](https://github.com/CurvSurf/FindSurface-Android)
-      - [BasicDemo (Kotlin)](https://github.com/CurvSurf/FindSurface-BasicDemo-Android)
-  - [FindSurface for Windows (C/C++)](https://github.com/CurvSurf/FindSurface-Windows)
-      - [BasicDemo (C/C++)](https://github.com/CurvSurf/FindSurface-BasicDemo-Windows-Linux)
-  - [FindSurface for Liinux (C/C++)](https://github.com/CurvSurf/FindSurface-Linux)
-      - [BasicDemo (C/C++)](https://github.com/CurvSurf/FindSurface-BasicDemo-Windows-Linux)
-
-
-
 ## How does it work?
 
 FindSurface detects a geometric model in point cloud. It starts searching with a region of interest in the points and spreading the search space until it converges to a specific mathematical representation of one of the geometric shapes according to their local curvature, which has the minimal errors in the distances to the points. The types of the shapes that FindSurface detects are planes (bounded), spheres, cylinders, cones, tori.

@@ -2,6 +2,8 @@
 
 **Curv*Surf* FindSurface™**
 
+
+
 ## Overview
 
 FindSurface is a software library that extracts 3D geometric information from point cloud data.
@@ -12,25 +14,40 @@ This library supports the following platforms/languages and you can find the dis
 - [Android (Java/Kotlin)](https://github.com/CurvSurf/FindSurface-Android)
 - [Windows](https://github.com/CurvSurf/FindSurface-Windows)/[Linux](https://github.com/CurvSurf/FindSurface-Linux) (C/C++)
 
+
+
+## Sitemaps
+
+  - [FindSurface for iOS (Objective-C/Swift)](https://github.com/CurvSurf/FindSurface-iOS)
+      - [BasicDemo (Swift)](https://github.com/CurvSurf/FindSurface-BasicDemo-iOS)
+  - [FindSurface for Android (Java/Kotlin)](https://github.com/CurvSurf/FindSurface-Android)
+      - [BasicDemo (Kotlin)](https://github.com/CurvSurf/FindSurface-BasicDemo-Android)
+  - [FindSurface for Windows (C/C++)](https://github.com/CurvSurf/FindSurface-Windows)
+      - [BasicDemo (C/C++)](https://github.com/CurvSurf/FindSurface-BasicDemo-Windows-Linux)
+  - [FindSurface for Liinux (C/C++)](https://github.com/CurvSurf/FindSurface-Linux)
+      - [BasicDemo (C/C++)](https://github.com/CurvSurf/FindSurface-BasicDemo-Windows-Linux)
+
+
+
 ## How does it work?
 
 FindSurface detects a geometric model in point cloud. It starts searching with a region of interest in the points and spreading the search space until it converges to a specific mathematical representation of one of the geometric shapes according to their local curvature, which has the minimal errors in the distances to the points. The types of the shapes that FindSurface detects are planes (bounded), spheres, cylinders, cones, tori.
 
 The strategy of FindSurface's algorithm, which affects how it spreads its search space or converges to the specific model, is determined by its parameters. The followings are the terms and its meanings that we define for the parameters:
 
-- **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. The smaller the value, the lower it gets the result's RMS error (if detected any), but lowers the algorithm's detection rate. In contrast, a larger value raises the detection rate but the result tends to have a higher RMS error.
+- **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. The smaller the value, the lower it gets the result's [RMS error](#what-exactly-do-i-get-from-findsurface) (if detected any), but lowers the algorithm's detection rate. In contrast, a larger value raises the detection rate but the result tends to have a higher [RMS error](#what-exactly-do-i-get-from-findsurface).
 
-- **Mean Distance** means an average distance between points. This value is determined by the scanner device's resolution and its scan distance. This value to be used to validate the results of FindSurface by checking the point density of inlier points. It is recommended to set this value to a 2~5 times higher value of the actual one because the inlier points will have lower point density than that of input points.
+- **Mean Distance** means an average distance between points. This value is determined by the scanner device's resolution and its scan distance. This value is to be used to validate the results of FindSurface by checking the point density of inlier points. It is recommended to set this value to a 2~5 times higher value of the actual one because the inlier points will have lower point density than that of input points.
 
-- **Seed Point (Index)** is a point of interest to start searching the surface. FindSurface accepts this information as an **index** in the point cloud.
+- **Seed Point (Index)** is a point of interest to start searching for the surface. FindSurface accepts this information as an **index** in the point cloud.
 
-- **Seed Radius** is the radius of a seed region around the seed point where FindSurface starts searching the surface. This value depends on the size of the geometry that you're interested in. It also had been called **Touch Radius** in the older versions of our library.
+- **Seed Radius** is the radius of a seed region around the seed point where FindSurface starts searching for the surface. This value depends on the size of the geometry that you're interested in. It also had been called **Touch Radius** in the older versions of our library.
 
   ![touch.jpg](https://developers.curvsurf.com/Documentation/APIs/How-To/img/touch.jpg)
 
-- **Lateral Extension** means the tendency for the searching algorithm to spread its search space in tangent direction of the surface to be sought. A larger plane or a longer cylinder might be detected as you set it to a higher value, and vice versa. Lateral extension has no influence to searching a sphere or a torus.
+- **Lateral Extension** means the tendency for the algorithm to spread its search space in tangent direction of the surface to be sought. A larger plane or a longer cylinder might be detected as you set it to a higher value, and vice versa. Lateral extension has no influence to searching for a sphere or a torus.
 
-- **Radial Expansion** means the tendency for the searching algorithm to thicken/thin its search space in normal direction of the surface to be sought. If the measurement points are releatively accurate/inaccurate, the most/least points might be considered as inlier points as you set it to a higher/lower value (level of inlier/outlier inclusion/exclusion). In other words, it is recommended not to set it to a lower/higher value for relatively accurate/inaccurate measurement points.
+- **Radial Expansion** means the tendency for the algorithm to thicken/thin its search space in normal direction of the surface to be sought. If the measurement points are releatively accurate/inaccurate, the most/least points might be considered as inlier points as you set it to a higher/lower value (level of inlier/outlier inclusion/exclusion). In other words, it is recommended not to set it to a lower/higher value for relatively accurate/inaccurate measurement points.
 
 - **Inlier / Outlier Flags** can be queried as an array of boolean flags from FindSurface, which tells if the point of the corresponding index should be considered to be in inliers. 
 
@@ -56,9 +73,9 @@ FindSurface produces the following information as the outputs of its algorithm:
 
 
 
-## Geometric Surfaces
+## Auto Detection
 
-From the point of view of the algorithm of FindSurface, all geometric surfaces can be classified into the following five types:
+FindSurface can detect the following five surface types from input points:
 
 - Bounded Plane (rectangle)
 - Sphere
@@ -66,17 +83,63 @@ From the point of view of the algorithm of FindSurface, all geometric surfaces c
 - Cone (including conical frustum)
 - Torus
 
+The algorithm of FindSurface is capable of "**Auto Detection**", which means it can detect the most fit surface type among the five types above around the seed area without specifying the feature type manually. The resulted surface type is automatically determined when the surface model converges to a specific surface type.
+
+The algorithm takes advantage of the fact that locally non-singular (i.e., differentiable) surfaces can have one of the following curvature types: 
+
+![four-surfaces](images/the-four-surface-types.png)
+
+One or more of these four types can comprise [the five surface types](#auto-detection), as follows:
+
+- Planes are planar;
+- Spheres are elliptic;
+- Cylinders are parabolic;
+- Cones are parabolic;
+- Tori are locally elliptic, hyperbolic, and parabolic.
+
+Given the seed point, the algorithm analyzes the local curvature of the region around the seed, which makes it possible for the algorithm to assume the initial surface model from the curvature. As the seed region grows, the surface model evolves into one of the five surface types. The following pseudo-code depicts the process taking place in the algorithm:
+
+##### pseudo-code
+
+````c
+if planar {
+  	fit a plane;
+}
+else if parabolic {
+  	fit a cone;
+  	if the vertex angle is small {
+      	fit a cylinder;
+    }
+}
+else if elliptic {
+  	if the mean radius is small {
+      	fit a sphere;
+    }
+  	else if the mean radius is large {
+      	fit a cylinder;
+    }
+  	else {
+  			fit a torus;
+    }
+}
+else /*if hyperbolic*/ {
+  	if the mean radius is large {
+      	fit a cylinder;
+    }
+  	else {
+  			fit a torus;
+    }
+}
+````
 
 
-## Auto Detection
 
-The algorithm of FindSurface is capable of "Auto Detection", which means it can detect the most fit surface type around the seed area without specifying the feature type manually. The resulted surface type is automatically determined when the surface model converges to a specific surface type.
+To use auto detection feature, set the enum value representing any type (e.g., [`FS_TYPE_ANY`](https://github.com/CurvSurf/FindSurface-Windows/blob/master/FindSurface-API-reference-C.md#fs_feature_type) for C, `FeatureType::any` for Kotlin) to the feature type parameter of `findSurface` function, instead of setting a specific type.
 
-(TODO: local curvature에 따라 branching하는 내용 찾아서 삽입)
+The auto detection performs well if the following conditions are met:
 
-
-
-To use auto detection feature, set the enum value representing any type (e.g., `FS_TYPE_ANY` for C, `FeatureType::any` for Kotlin) to the feature type parameter of `findSurface` function, instead of setting a specific type.
+- Accurate measurement points (e.g., the [measurement error](#how-does-it-work) is smaller than one 10th of the radius/size of the surface to be detected);
+- Large [seed radius](#how-does-it-work) (e.g., larger than 10 times of the point [measurement error](#how-does-it-work) size)
 
 
 
@@ -85,9 +148,10 @@ To use auto detection feature, set the enum value representing any type (e.g., `
 In the mathematical models of the geometric surfaces that the algorithm of FindSurface builds, there are some special relations between the surfaces in terms of geometric topology. For example, a cone (conical frustum) that has the same radii at both its top and bottom is actually a cylinder. After the model converges to a specific surface type, Smart conversion, if enabled, automatically converts the type according to the relations. Smart conversion converts:
 
 - A cone (conical frustum) that has the same radii at both its top and bottom into a cylinder;
-- A degenerate torus (a double-covered sphere), of which mean radius is zero, into a sphere;
-  ([this gif](https://en.wikipedia.org/wiki/File:Sphere-like_degenerate_torus.gif) will help you understand what it is)
+- A degenerate torus (a double-covered sphere), of which mean radius is zero, into a sphere ([this gif](https://en.wikipedia.org/wiki/File:Sphere-like_degenerate_torus.gif) will help you understand what it is);
 - A torus that has an infinite mean radius into a cylinder;
+
+See the [pseudo-code](#pseudo-code) in the [Auto Detection](#auto-detection) section since it depicts the conversion criteria too.
 
 To enable Smart Conversion, the corresponding enum value must be set to the context manually.
 
@@ -99,3 +163,6 @@ To enable Smart Conversion, the corresponding enum value must be set to the cont
 
 This library's ownership is solely on CurvSurf, Inc. and anyone can use it for non-commercial purposes. Contact to support@curvsurf.com for commercial use of the library.
 
+
+
+[#auto-detection]: 

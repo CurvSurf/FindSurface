@@ -136,7 +136,11 @@ In the mathematical models of the geometric surfaces that the algorithm of FindS
 
 See the [pseudo-code](#pseudo-code) in the [Auto Detection](#auto-detection) section since it depicts the conversion criteria too.
 
-To enable Smart Conversion, the corresponding enum value must be set to the context manually.
+To enable Smart Conversion, enum values corresponding to the options must be set to the context manually.
+
+> **Important**: Enable all smart conversion options. Because of the nature of the union used as FindSurface's result data structure, interpreting the un-converted results in usual ways might cause   incorrect results when the results need to be converted. **Please enable all the options** before use.
+
+>Note: The options do not affect the behavior of Auto Detection since Auto Detection converts the types even if no options are enabled, as if all is enabled.
 
 
 

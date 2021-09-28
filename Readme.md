@@ -22,7 +22,7 @@ FindSurface detects a geometric model in point cloud. It starts searching with a
 
 The strategy of FindSurface's algorithm, which affects how it spreads its search space or converges to the specific model, is determined by its parameters. The followings are the terms and its meanings that we define for the parameters:
 
-- **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. This value is to be used to validate the results of FindSurface by checking whether the *a posteriori* [RMS error](#what-exactly-do-i-get-from-findsurface) is not large enough (e.g., smaller than 1.5 times this *a priori* value). One of the reasons for getting large *a posteriori* RMS errors is due to the model error; the assumed surface model does not represent the measurement points well. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. 
+- **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. This value is to be used to validate the results of FindSurface by checking whether the *posteriori* [RMS error](#what-exactly-do-i-get-from-findsurface) is not large enough (e.g., smaller than 1.5 times this *a priori* value). One of the reasons for getting large *posteriori* RMS errors is due to the model error; the assumed surface model does not represent the measurement points well. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. 
 
 - **Mean Distance** means an average distance between points. This value is determined by the scanner device's resolution and its scan distance. This value is to be used to validate the results of FindSurface by checking the point density of inlier points. It is recommended to set this value to a 2~5 times higher value of the actual one because the inlier points will have lower point density than that of input points.
 
@@ -31,6 +31,8 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 - **Seed Radius** is the radius of a seed region around the seed point where FindSurface starts searching for the surface. This value depends on the size of the geometry that you're interested in. It also had been called **Touch Radius** in the older versions of our library.
 
   ![touch.jpg](https://developers.curvsurf.com/Documentation/APIs/How-To/img/touch.jpg)
+
+  Segmentation of the scene image of the point cloud could be helpful to determine the seed point and seed radius. The position and size of a segmented blob can be converted to the point and radius by using the camera parameters of the scene image, which leads to a fully automatic geometric understanding of the scene.
 
 - **Lateral Extension** means the tendency for the algorithm to spread its search space in tangent direction of the surface to be sought. A larger plane or a longer cylinder might be detected as you set it to a higher value, and vice versa. Lateral extension has no influence to searching for a sphere or a torus.
 

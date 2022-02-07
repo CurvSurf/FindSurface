@@ -22,7 +22,7 @@ FindSurface detects a geometric model in point cloud. It starts searching with a
 
 The strategy of FindSurface's algorithm, which affects how it spreads its search space or converges to the specific model, is determined by its parameters. The followings are the terms and its meanings that we define for the parameters:
 
-- **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. This value is to be used to validate the results of FindSurface by checking whether the *posteriori* [RMS error](#what-exactly-do-i-get-from-findsurface) is not large enough (e.g., smaller than 1.5 times this *a priori* value). One of the reasons for getting large *posteriori* RMS errors is due to the model error; the assumed surface model does not represent the measurement points well. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. 
+- **Measurement Accuracy** means the *a priori* root-mean-squared error of the measurement points. In most cases, the value of this error is determined by the scanner devices that provide the points, but it may vary depending on the scan distance. This value is to be used to validate the results of FindSurface by checking whether the *a posteriori* [RMS error](#what-exactly-do-i-get-from-findsurface) is not large enough (e.g., smaller than 1.5 times this *a priori* value). One of the reasons for getting large *a posteriori* RMS errors is due to the model error; the assumed surface model does not represent the measurement points well. You may set this value to an approximated value (about 2x of the actual error) or a heuristically estimated value. 
 
 - **Mean Distance** means an average distance between points. This value is determined by the scanner device's resolution and its scan distance. This value is to be used to validate the results of FindSurface by checking the point density of inlier points. It is recommended to set this value to a 2~5 times higher value of the actual one because the inlier points will have lower point density than that of input points.
 
@@ -49,7 +49,7 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 FindSurface produces the following information as the outputs of its algorithm:
 
-- **RMS error** means the *posteriori* root-mean-squared error between the inlier points and the detected surface.
+- **RMS error** means the *a posteriori* root-mean-squared error between the inlier points and the detected surface.
 - **Feature Type**: the geometric type of the detected surface (plane, sphere, cylinder, cone, torus)
 - **Sizes and positions** corresponding to the type:
   - The coordinates of **four corner** points of a plane (named as lower left, lower right, upper left, upper right).

@@ -117,7 +117,7 @@ else /*if hyperbolic*/ {
 }
 ````
 
-
+![figure1.png](images/figure1.png)
 
 To use auto detection feature, set the enum value representing any type (e.g., [`FS_TYPE_ANY`](https://github.com/CurvSurf/FindSurface-Windows/blob/master/FindSurface-API-reference-C.md#fs_feature_type) for C, `FeatureType::any` for Kotlin) to the feature type parameter of `findSurface` function, instead of setting a specific type.
 

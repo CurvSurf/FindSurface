@@ -2,7 +2,7 @@
 
 **Curv*Surf* FindSurface™**
 
-
+> Note: All the repositories related to the library binaries and the demos using them are **not available** currently due to internal problems.
 
 ## Overview
 
@@ -10,9 +10,9 @@ FindSurface is a software library that extracts 3D geometric information from po
 
 This library supports the following platforms/languages and you can find the distribution of the library for each platform at the link:
 
-- [iOS (Objective-C/Swift)](https://github.com/CurvSurf/FindSurface-iOS)
-- [Android (Java/Kotlin)](https://github.com/CurvSurf/FindSurface-Android)
-- [Windows](https://github.com/CurvSurf/FindSurface-Windows)/[Linux](https://github.com/CurvSurf/FindSurface-Linux) (C/C++)
+- [<s>iOS (Objective-C/Swift)</s>](https://github.com/CurvSurf/FindSurface-iOS)
+- [<s>Android (Java/Kotlin)</s>](https://github.com/CurvSurf/FindSurface-Android)
+- [<s>Windows</s>](https://github.com/CurvSurf/FindSurface-Windows)/[<s>Linux</s>](https://github.com/CurvSurf/FindSurface-Linux) (C/C++)
 
 
 

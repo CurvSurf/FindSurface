@@ -12,7 +12,8 @@ This library supports the following platforms/languages and you can find the dis
 
 - [iOS (Objective-C/Swift)](https://github.com/CurvSurf/FindSurface-iOS)
 - Android (Java/Kotlin) (unavailable)
-- Windows/Linux (unavailable)
+- [Windows](https://github.com/CurvSurf/FindSurface-Windows)
+- [Linux](https://github.com/CurvSurf/FindSurface-Linux)
 - [visionOS (Swift)](https://github.com/CurvSurf/FindSurface-visionOS)
 
 > **IMPORTANT**: FindSurface does not work with error-free point clouds, such as procedurally calculated points or vertices from CAD modeling software. It requires points with measurement errors to function as intended. If you want to test FindSurface and don't have such data, we recommend introducing Gaussian-distributed random errors into your error-free data and adjusting the related parameters (i.e., measurement accuracy and mean distance) to match the error-producing configuration.

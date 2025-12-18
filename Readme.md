@@ -33,7 +33,7 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 - **Seed Radius** is the radius of a seed region around the seed point where FindSurface starts searching for the surface. This value depends on the size of the geometry that you're interested in. It also had been called **Touch Radius** in the older versions of our library.
 
-  ![touch.jpg](https://developers.curvsurf.com/Documentation/APIs/How-To/img/touch.jpg)
+  ![touch.jpg](images/touch.jpg)
 
   Segmentation of the scene image of the point cloud could be helpful to determine the seed point and seed radius. The position and size of a segmented blob can be converted to the point and radius by using the camera parameters of the scene image, which leads to a fully automatic geometric understanding of the scene.
 
@@ -43,7 +43,7 @@ The strategy of FindSurface's algorithm, which affects how it spreads its search
 
 - **Inlier / Outlier Flags** can be queried as an array of boolean flags from FindSurface, which tells if the point of the corresponding index should be considered to be in inliers. 
 
-  ![inliers_outliers.jpg](https://developers.curvsurf.com/Documentation/APIs/How-To/img/inliers_outliers.jpg)
+  ![inliers_outliers.jpg](images/inliers_outliers.jpg)
 
   
 
